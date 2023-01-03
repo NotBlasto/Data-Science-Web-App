@@ -2,6 +2,7 @@ streamlit
 pandas
 seaborn
 sklearn
+sklearn.preprocessing
 plotly
 plotly.express
 numpy
