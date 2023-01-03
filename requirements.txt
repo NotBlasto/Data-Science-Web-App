@@ -7,6 +7,4 @@ plotly.express
 numpy
 seaborn
 matplotlib
-matplotlib.pyplot
 statsmodels
-statsmodels.api
