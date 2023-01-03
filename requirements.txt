@@ -1,7 +1,6 @@
 streamlit
 pandas
 seaborn
-pickle
 sklearn
 plotly
 plotly.express
