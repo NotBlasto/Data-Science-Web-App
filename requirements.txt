@@ -1,0 +1,13 @@
+streamlit
+pandas
+seaborn
+pickle
+sklearn
+plotly
+plotly.express
+numpy
+seaborn
+matplotlib
+matplotlib.pyplot
+statsmodels
+statsmodels.api
