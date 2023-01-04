@@ -63,13 +63,7 @@ def main(df):
         selected_model = EDA_column.selectbox('Regression Models', options = ['Linear', 'Ridge', 'Lasso'])
     try:
         x_train, x_test, y_train, y_test = splitData(df, EDA_column)
-    except:
-        pass
-    try:
         model = createModel(df, problem_type, selected_model, EDA_column)
-    except:
-        pass
-    try:
         trained_model = train(model,x_train, x_test, y_train, y_test, problem_type, EDA_column)
         save_model(trained_model, EDA_column)
     except (AttributeError, UnboundLocalError):
