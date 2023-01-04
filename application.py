@@ -35,7 +35,7 @@ def main(df):
     except:
         pass
     #Drop Columns section
-    drop_choice = EDA_column.multiselect('Select the columns you would like to drop', options = options)
+    drop_choice = EDA_column.multiselect('Select the columns you would like to drop', options = df.columns)
     df = dropColumn(df,drop_choice,EDA_column)
     EDA_column.write('Updated Dataframe')
     EDA_column.write(df)
@@ -53,7 +53,7 @@ def main(df):
         pass
 
     chosen_columns =  EDA_column.multiselect('Select at least 2 columns you would like to see visualized', options = df.columns)
-    color_choice = EDA_column.selectbox('Choose Categorical Variable', options = df.columns)
+    color_choice = EDA_column.selectbox('Choose Categorical Variable', options = options)
     chosen_graphtype = EDA_column.selectbox('Select the type of graph', options = ['Scatter Plot', 'Line Plot', 'Bar Chart', 'PCA'])
     try:
         createGraph(df, chosen_columns, color_choice, chosen_graphtype, EDA_column)
