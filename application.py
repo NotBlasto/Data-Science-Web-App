@@ -25,15 +25,16 @@ def main(df):
     #Allowing user to select columns they would like to change the data type of and desired datatype
     selected_column = EDA_column.selectbox('Select the column you would like to change the data type of', options = options, index = 0)
     dtypes = ['object', 'int64', 'float64', 'bool', 'category'] #try to integrate timedelta and datetime datatypes at some point
-    desired_dtype = EDA_column.selectbox('Select desired data type', options = dtypes)
+    if selected_column:
+        desired_dtype = EDA_column.selectbox('Select desired data type', options = dtypes)
     
-    #Changed_datatype is assigned to a returned df from the chageDataType function that represents the dataframe with new datatypes
-    try:
-        changed_datatype = changeDataType(df,selected_column,desired_dtype)
-        EDA_column.write(changed_datatype)
-        EDA_column.write('Successfully changed '+str(selected_column)+' to type '+str(desired_dtype))
-    except:
-        pass
+        #Changed_datatype is assigned to a returned df from the chageDataType function that represents the dataframe with new datatypes
+        try:
+            changed_datatype = changeDataType(df,selected_column,desired_dtype)
+            EDA_column.write(changed_datatype)
+            EDA_column.write('Successfully changed '+str(selected_column)+' to type '+str(desired_dtype))
+        except:
+            pass
     #Drop Columns section
     drop_choice = EDA_column.multiselect('Select the columns you would like to drop', options = df.columns)
     df = dropColumn(df,drop_choice,EDA_column)
