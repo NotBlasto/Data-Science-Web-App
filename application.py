@@ -65,7 +65,7 @@ def main(df):
     elif problem_type == 'Regression':
         selected_model = EDA_column.selectbox('Regression Models', options = ['Linear', 'Ridge', 'Lasso'])
     dependent_var = EDA_column.selectbox('Dependent Variable', options = options)
-    independent_vars = EDA_column.multiselect('Independent Variables', options = options)
+    independent_vars = EDA_column.multiselect('Independent Variables', options = df.columns)
     standardize = EDA_column.checkbox('Standardize Data')
     normalize = EDA_column.checkbox('Normalize Data')
     try:
