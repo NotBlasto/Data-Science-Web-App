@@ -210,15 +210,15 @@ def train(model, x_train, x_test, y_train, y_test, problem_type, web_column):
 
 def convert_df(df):
    return df.to_csv(index=False).encode('utf-8')
-   
-def save_csv(df, web_column):
+
+def save_csv(df, web_column, keynum):
     csv = convert_df(df)
     web_column.download_button(
    "Save .csv",
    csv,
    "UpdatedCsv.csv",
    "text/csv",
-   key='download-csv'
+   key='download-csv'+ str(keynum)
 )
 
 def save_model(model, web_column):
