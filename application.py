@@ -61,9 +61,7 @@ def main(df):
         createGraph(df, chosen_columns, color_choice, chosen_graphtype, EDA_column)
     except:
         pass
-    save_button = EDA_column.button('Save .csv')
-    if save_button:
-        save_csv(df, uploaded_file)
+    save_csv(df, uploaded_file, EDA_column)
     problem_type = EDA_column.selectbox('Type of Problem', options = ['Regression', 'Classification'])
     if problem_type == 'Classification':
         selected_model = EDA_column.selectbox('Classification Models', options = ['Logreg','KNN', 'Decision Tree', 'SVM (Experimental)'])
@@ -75,9 +73,7 @@ def main(df):
     normalize = EDA_column.checkbox('Normalize Data')
     try:
         x_train, x_test, y_train, y_test = splitData(df, dependent_var, independent_vars, standardize, normalize)
-        save_button = EDA_column.button('Save .csv')
-        if save_button:
-            save_csv(df, uploaded_file)
+        save_csv(df, uploaded_file, EDA_column)
     except:
         pass
     try:

@@ -218,7 +218,7 @@ def save_model(model, web_column):
     web_column.download_button(
     "Download Model",
     data=pickle.dumps(model),
-    file_name="newcsv.csv")
+    file_name="model.pkl")
 
 def CreatePCA(df):
     numerical_column_list = []
