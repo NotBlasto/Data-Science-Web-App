@@ -208,11 +208,18 @@ def train(model, x_train, x_test, y_train, y_test, problem_type, web_column):
         web_column.plotly_chart(px.bar(data_frame=model_eval_df, x=model_eval_df.index, y= model_eval_df.columns, height = 500))
     return trained_model
 
-def save_csv(df, uploaded_file, web_column):
+def convert_df(df):
+   return df.to_csv(index=False).encode('utf-8')
+   
+def save_csv(df, web_column):
+    csv = convert_df(df)
     web_column.download_button(
-    "Download csv",
-    data=df.to_csv('New '+str(uploaded_file)),
-    file_name="newcsv.csv")
+   "Save .csv",
+   csv,
+   "UpdatedCsv.csv",
+   "text/csv",
+   key='download-csv'
+)
 
 def save_model(model, web_column):
     web_column.download_button(
