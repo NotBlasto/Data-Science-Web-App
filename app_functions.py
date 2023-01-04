@@ -54,6 +54,7 @@ def createGraph(df, selected_columns, categorical_variable, chosen_graph, web_co
     #bar
     elif chosen_graph == 'Bar Chart':
         web_column.plotly_chart(px.bar(data_frame=df, x=df[selected_columns[0]], y= df[selected_columns[1]], color = categorical_variable, height = 800), use_container_width=True)
+    #pca
     elif chosen_graph == 'PCA':
         pca_data, categorical_cols, pca_cols = CreatePCA(df)
         catgorical_variable = web_column.selectbox('Variable Selector', options= categorical_cols)
@@ -72,10 +73,6 @@ def heatmap(df, web_column):
     total_correlation = df.corr()
     fig = px.imshow(total_correlation, text_auto = True)
     web_column.plotly_chart(fig, use_container_width=True)
-    #MAY ALSO DO THIS BUT ITS HUGE
-    #fig = plt.figure(figsize=(8, 3))
-    #sns.heatmap(total_correlation, annot=True)
-    #st.pyplot(fig)
 
 def dropColumn(df, selected_column, web_column):
     for i in range(len(selected_column)):
@@ -102,7 +99,7 @@ def splitData(df, dependent_var, independent_vars, standardize, normalize):
         X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=.2,random_state=2 )
         return X_train, X_test, Y_train, Y_test
 
-def createModel(df, problem_type, selected_model, web_column):
+def createModel(selected_model, web_column):
         if selected_model == 'KNN':
             cv_slider = web_column.slider('CV Amount', min_value = 1, max_value = 15, step = 1)
             neighbor_input = int(web_column.text_input('Number of Neighbors You Would Like To Test'))
@@ -180,43 +177,6 @@ def createModel(df, problem_type, selected_model, web_column):
             if button:
                 lasso_cv = GridSearchCV(lasso, parameters, cv=cv_slider)
                 return lasso_cv
-#maybe add polynomial
-
-
-# def plot_confusion_matrix(y,y_predict, web_column):
-#     "this function plots the confusion matrix"
-
-#     cm = confusion_matrix(y, y_predict)
-#     ax= plt.subplot()
-#     sns.heatmap(cm, annot=True, ax = ax); #annot=True to annotate cells
-#     ax.set_xlabel('Predicted labels')
-#     ax.set_ylabel('True labels')
-#     ax.set_title('Confusion Matrix'); 
-#     ax.xaxis.set_ticklabels(['0', '1']); ax.yaxis.set_ticklabels(['0', '1'])
-#     plt.show()
-
-
-# def show_values(axs, orient="v", space=.01):
-#     def _single(ax):
-#         if orient == "v":
-#             for p in ax.patches:
-#                 _x = p.get_x() + p.get_width() / 2
-#                 _y = p.get_y() + p.get_height() + (p.get_height()*0.01)
-#                 value = '{:.3f}'.format(p.get_height())
-#                 ax.text(_x, _y, value, ha="center") 
-#         elif orient == "h":
-#             for p in ax.patches:
-#                 _x = p.get_x() + p.get_width() + float(space)
-#                 _y = p.get_y() + p.get_height() - (p.get_height()*0.5)
-#                 value = '{:.3f}'.format(p.get_width())
-#                 ax.text(_x, _y, value, ha="left")
-
-#     if isinstance(axs, np.ndarray):
-#         for idx, ax in np.ndenumerate(axs):
-#             _single(ax)
-#     else:
-#         _single(axs)
-
 
 def train(model, x_train, x_test, y_train, y_test, problem_type, web_column):
     trained_model = model.fit(x_train, y_train)
@@ -286,4 +246,39 @@ def CreatePCA(df):
 
 
 
+#add some more models and a confusion matrix.
 
+
+# def plot_confusion_matrix(y,y_predict, web_column):
+#     "this function plots the confusion matrix"
+
+#     cm = confusion_matrix(y, y_predict)
+#     ax= plt.subplot()
+#     sns.heatmap(cm, annot=True, ax = ax); #annot=True to annotate cells
+#     ax.set_xlabel('Predicted labels')
+#     ax.set_ylabel('True labels')
+#     ax.set_title('Confusion Matrix'); 
+#     ax.xaxis.set_ticklabels(['0', '1']); ax.yaxis.set_ticklabels(['0', '1'])
+#     plt.show()
+
+
+# def show_values(axs, orient="v", space=.01):
+#     def _single(ax):
+#         if orient == "v":
+#             for p in ax.patches:
+#                 _x = p.get_x() + p.get_width() / 2
+#                 _y = p.get_y() + p.get_height() + (p.get_height()*0.01)
+#                 value = '{:.3f}'.format(p.get_height())
+#                 ax.text(_x, _y, value, ha="center") 
+#         elif orient == "h":
+#             for p in ax.patches:
+#                 _x = p.get_x() + p.get_width() + float(space)
+#                 _y = p.get_y() + p.get_height() - (p.get_height()*0.5)
+#                 value = '{:.3f}'.format(p.get_width())
+#                 ax.text(_x, _y, value, ha="left")
+
+#     if isinstance(axs, np.ndarray):
+#         for idx, ax in np.ndenumerate(axs):
+#             _single(ax)
+#     else:
+#         _single(axs)

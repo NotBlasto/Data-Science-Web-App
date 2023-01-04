@@ -73,7 +73,7 @@ def main(df):
     except:
         pass
     try:
-        model = createModel(df, problem_type, selected_model, EDA_column)
+        model = createModel(selected_model, EDA_column)
     except:
         pass
     try:
