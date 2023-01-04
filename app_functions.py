@@ -207,14 +207,18 @@ def train(model, x_train, x_test, y_train, y_test, problem_type, web_column):
         web_column.write(model_eval_df)
         web_column.plotly_chart(px.bar(data_frame=model_eval_df, x=model_eval_df.index, y= model_eval_df.columns, height = 500))
     return trained_model
-def save_csv(df, uploaded_file):
-    df.to_csv('UPDATED'+str(uploaded_file))
+
+def save_csv(df, uploaded_file, web_column):
+    web_column.download_button(
+    "Download csv",
+    data=df.to_csv('New '+str(uploaded_file)),
+    file_name="newcsv.csv")
 
 def save_model(model, web_column):
     web_column.download_button(
     "Download Model",
     data=pickle.dumps(model),
-    file_name="model.pkl")
+    file_name="newcsv.csv")
 
 def CreatePCA(df):
     numerical_column_list = []
