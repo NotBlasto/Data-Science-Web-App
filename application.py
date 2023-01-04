@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import warnings
-from app_functions import getDataTypes, changeDataType, heatmap, save_model
+from app_functions import getDataTypes, changeDataType, heatmap, save_model, save_csv
 from app_functions import createModel, dropColumn, createGraph, labelEncode, splitData, train
 
 #TODO
@@ -50,7 +50,7 @@ def main(df):
     EDA_column.write(df)
 
     #Correlation Heatmap
-    EDA_column.write('Heatmap of Correlation')
+    EDA_column.write('Correlation Heatmap')
     heatmap(df, EDA_column)
 
 
@@ -72,6 +72,9 @@ def main(df):
     normalize = EDA_column.checkbox('Normalize Data')
     try:
         x_train, x_test, y_train, y_test = splitData(df, dependent_var, independent_vars, standardize, normalize)
+        save_button = EDA_column.button('Save .csv')
+        if save_button:
+            save_csv(df, uploaded_file)
     except:
         pass
     try:

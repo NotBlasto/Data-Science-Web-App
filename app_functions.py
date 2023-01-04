@@ -106,7 +106,7 @@ def createModel(selected_model, web_column):
             neighbors = list(range(1, neighbor_input+1))
             algorithms = ['auto', 'ball_tree', 'kd_tree', 'brute']
             parameters = {'n_neighbors': neighbors,'algorithm': algorithms, 'p': [1, 2]}
-            button = web_column.button('Run')
+            button = web_column.button('Make Model')
             if button:
                 KNN = KNeighborsClassifier()
                 KNN_cv = GridSearchCV(KNN, parameters, cv= cv_slider, refit=True)
@@ -115,7 +115,7 @@ def createModel(selected_model, web_column):
             cv_slider = web_column.slider('CV Amount', min_value = 1, max_value = 15, step = 1)
             parameters = {'C': np.logspace(-3, 3, 5), 'penalty': ['l1', 'l2', 'elasticnet'], 
             'solver': ['lbfgs', 'liblinear', 'newton-cg', 'newton-cholesky', 'sag', 'saga']}
-            button = web_column.button('Run')
+            button = web_column.button('Make Model')
             if button:
                 logreg = LogisticRegression(random_state = 2)
                 logreg_cv = GridSearchCV(logreg, parameters, cv=cv_slider, refit=True)
@@ -123,7 +123,7 @@ def createModel(selected_model, web_column):
         elif selected_model == 'SVM (Experimental)':
             cv_slider = web_column.slider('CV Amount', min_value = 1, max_value = 15, step = 1)
             parameters = {'kernel':('linear','rbf','poly','sigmoid'), 'C': np.logspace(-3, 3, 5), 'gamma': np.logspace(-3, 3, 5)}
-            button = web_column.button('Run')
+            button = web_column.button('Make Model')
             if button:
                 svm = SVC(probability=True, random_state=3)
                 svm_cv = GridSearchCV(svm, parameters, cv = cv_slider, refit=True)
@@ -136,13 +136,13 @@ def createModel(selected_model, web_column):
                 'max_features': ['sqrt'],
                 'min_samples_leaf': [1,2,4],
                 'min_samples_split' : [2,5,10]}
-            button = web_column.button('Run')
+            button = web_column.button('Make Model')
             if button:
                 tree = DecisionTreeClassifier(random_state=4)
                 tree_cv = GridSearchCV(tree, parameters, cv=cv_slider, refit=True)
                 return tree_cv
         elif selected_model == 'Linear':
-            button = web_column.button('Run')
+            button = web_column.button('Make Model')
             if button:
                 linreg = LinearRegression()
                 return linreg
@@ -155,7 +155,7 @@ def createModel(selected_model, web_column):
                         'tol': [1e-4, 1e-3, 1e-2, 1e-1],
                         'solver': ['auto', 'svd', 'cholesky', 'lsqr', 'sparse_cg', 'sag', 'saga', 'lbfgs'],
                         'random_state': [None, 42]}
-            button = web_column.button('Run')
+            button = web_column.button('Make Model')
             if button:
                 ridge = Ridge()
                 ridge_cv = GridSearchCV(ridge, parameters, cv=cv_slider)
@@ -173,7 +173,7 @@ def createModel(selected_model, web_column):
                         'positive': [True, False],
                         'selection': ['cyclic', 'random'],
                         'random_state': [None, 42]}
-            button = web_column.button('Run')
+            button = web_column.button('Make Model')
             if button:
                 lasso_cv = GridSearchCV(lasso, parameters, cv=cv_slider)
                 return lasso_cv
@@ -207,6 +207,8 @@ def train(model, x_train, x_test, y_train, y_test, problem_type, web_column):
         web_column.write(model_eval_df)
         web_column.plotly_chart(px.bar(data_frame=model_eval_df, x=model_eval_df.index, y= model_eval_df.columns, height = 500))
     return trained_model
+def save_csv(df, uploaded_file):
+    df.to_csv('UPDATED'+str(uploaded_file))
 
 def save_model(model, web_column):
     web_column.download_button(
