@@ -83,6 +83,7 @@ def main(df):
     try:
         trained_model = train(model,x_train, x_test, y_train, y_test, problem_type, EDA_column)
         save_model(trained_model, EDA_column)
+        save_csv(df, EDA_column)
     except (AttributeError, UnboundLocalError):
         pass
     
