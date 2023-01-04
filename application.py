@@ -25,7 +25,7 @@ def main(df):
     #Allowing user to select columns they would like to change the data type of and desired datatype
     selected_column = EDA_column.selectbox('Select the column you would like to change the data type of', options = options, index = 0)
     dtypes = ['object', 'int64', 'float64', 'bool', 'category'] #try to integrate timedelta and datetime datatypes at some point
-    if selected_column:
+    if selected_column != 'Choose an option':
         desired_dtype = EDA_column.selectbox('Select desired data type', options = dtypes)
     
         #Changed_datatype is assigned to a returned df from the chageDataType function that represents the dataframe with new datatypes
