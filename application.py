@@ -6,15 +6,17 @@ from app_functions import getDataTypes, changeDataType, heatmap, save_model
 from app_functions import createModel, dropColumn, createGraph, labelEncode, splitData, train
 
 #TODO
-#ADD HISTOGRAMS 
-#COULD MAYBE DO SOME SORT OF NUTS FOR LOOP THAT LOOPS THROUGH ALL COLUMNS IN THE DF, TRAINS AND RUNS THE MODEL, AND RETURNS THE MOST IMPORTANT PREDICTOR COLUMNS.
+#add histograms
+#could possibly automate much more of this process for the user.
 #Provide users a better way to compare the performance of the various models they create.
+#Add Chi Square to heatmap
+#Possibly make it so users can make multiple visualizations/models at once. Make graphs that compare the performance of all models made within the session. 
 
 def main(df):
     #Assigning data_type to the datatypes of the uploaded dataframe
     data_type = getDataTypes(df)
     #Presenting the user their uploaded dataframe / datatypes of its columns
-    EDA_column.write('Below displays the datatype of your dataframe')
+    EDA_column.write('Dataframe Datatypes')
     EDA_column.write(data_type)
 
     options = ['Choose an option']
@@ -33,7 +35,7 @@ def main(df):
     except:
         pass
     #Drop Columns section
-    drop_choice = EDA_column.multiselect('Select the columns you would like to drop', options = df.columns)
+    drop_choice = EDA_column.multiselect('Select the columns you would like to drop', options = options)
     df = dropColumn(df,drop_choice,EDA_column)
     EDA_column.write('Updated Dataframe')
     EDA_column.write(df)
@@ -44,15 +46,12 @@ def main(df):
     EDA_column.write(df)
 
     #Correlation Heatmap
-    #CHI SQUARE IS CORRELATION FOR CATEGORICAL VARIABLES. INCLUDE THIS.
     EDA_column.write('Heatmap of Correlation')
     try:
         heatmap(df, EDA_column)
     except FutureWarning:
         pass
 
-
-    #Further Visualization / GET INPUT, SHOULD USERS BE ABLE TO DISPLAY MORE THAN ONE CHART SIMULTANEOUSLY??
     chosen_columns =  EDA_column.multiselect('Select at least 2 columns you would like to see visualized', options = df.columns)
     color_choice = EDA_column.selectbox('Choose Categorical Variable', options = df.columns)
     chosen_graphtype = EDA_column.selectbox('Select the type of graph', options = ['Scatter Plot', 'Line Plot', 'Bar Chart', 'PCA'])
