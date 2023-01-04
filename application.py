@@ -61,6 +61,9 @@ def main(df):
         createGraph(df, chosen_columns, color_choice, chosen_graphtype, EDA_column)
     except:
         pass
+    save_button = EDA_column.button('Save .csv')
+    if save_button:
+        save_csv(df, uploaded_file)
     problem_type = EDA_column.selectbox('Type of Problem', options = ['Regression', 'Classification'])
     if problem_type == 'Classification':
         selected_model = EDA_column.selectbox('Classification Models', options = ['Logreg','KNN', 'Decision Tree', 'SVM (Experimental)'])
