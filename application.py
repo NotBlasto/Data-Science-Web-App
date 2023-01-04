@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import warnings
-from app_functions import getDataTypes, changeDataType, heatmap, save_model, save_csv
+from app_functions import getDataTypes, changeDataType, heatmap, save_model, save_csv, convert_df
 from app_functions import createModel, dropColumn, createGraph, labelEncode, splitData, train
 
 #TODO
