@@ -46,7 +46,11 @@ def main(df):
     #Correlation Heatmap
     #CHI SQUARE IS CORRELATION FOR CATEGORICAL VARIABLES. INCLUDE THIS.
     EDA_column.write('Heatmap of Correlation')
-    heatmap(df, EDA_column)
+    try:
+        heatmap(df, EDA_column)
+    except FutureWarning:
+        pass
+
 
     #Further Visualization / GET INPUT, SHOULD USERS BE ABLE TO DISPLAY MORE THAN ONE CHART SIMULTANEOUSLY??
     chosen_columns =  EDA_column.multiselect('Select at least 2 columns you would like to see visualized', options = df.columns)
@@ -63,7 +67,13 @@ def main(df):
         selected_model = EDA_column.selectbox('Regression Models', options = ['Linear', 'Ridge', 'Lasso'])
     try:
         x_train, x_test, y_train, y_test = splitData(df, EDA_column)
+    except:
+        pass
+    try:
         model = createModel(df, problem_type, selected_model, EDA_column)
+    except:
+        pass
+    try:
         trained_model = train(model,x_train, x_test, y_train, y_test, problem_type, EDA_column)
         save_model(trained_model, EDA_column)
     except (AttributeError, UnboundLocalError):
