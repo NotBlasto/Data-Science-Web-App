@@ -70,7 +70,7 @@ def labelEncode(df, selected_columns):
         df[selected_columns[i]] = labelencoder.fit_transform(df[selected_columns[i]])
     
 def heatmap(df, web_column):
-    total_correlation = df.corr()
+        total_correlation = df.corr()
     fig = px.imshow(total_correlation, text_auto = True)
     web_column.plotly_chart(fig, use_container_width=True)
 

@@ -2,6 +2,7 @@
 import streamlit as st
 import pandas as pd
 import seaborn as sns
+import warnings
 from app_functions import getDataTypes, changeDataType, heatmap, save_model
 from app_functions import createModel, dropColumn, createGraph, labelEncode, splitData, train
 
@@ -12,6 +13,8 @@ from app_functions import createModel, dropColumn, createGraph, labelEncode, spl
 #Add Chi Square to heatmap
 #Possibly make it so users can make multiple visualizations/models at once. Make graphs that compare the performance of all models made within the session. 
 
+#Ignore future warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 def main(df):
     #Assigning data_type to the datatypes of the uploaded dataframe
     data_type = getDataTypes(df)
@@ -48,10 +51,8 @@ def main(df):
 
     #Correlation Heatmap
     EDA_column.write('Heatmap of Correlation')
-    try:
-        heatmap(df, EDA_column)
-    except FutureWarning:
-        pass
+    heatmap(df, EDA_column)
+
 
     chosen_columns =  EDA_column.multiselect('Select at least 2 columns you would like to see visualized', options = df.columns)
     color_choice = EDA_column.selectbox('Choose Categorical Variable', options = options)
