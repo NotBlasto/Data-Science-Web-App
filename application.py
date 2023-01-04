@@ -60,9 +60,9 @@ def main(df):
         createGraph(df, chosen_columns, color_choice, chosen_graphtype, EDA_column)
     except:
         pass
-    problem_type = EDA_column.selectbox('Type of Problem', options = ['Classification', 'Regression'])
+    problem_type = EDA_column.selectbox('Type of Problem', options = ['Regression', 'Classification'])
     if problem_type == 'Classification':
-        selected_model = EDA_column.selectbox('Classification Models', options = ['KNN','LogReg', 'SVM', 'Decision Tree'])
+        selected_model = EDA_column.selectbox('Classification Models', options = ['Logreg','KNN', 'Decision Tree', 'SVM (Experimental)'])
     elif problem_type == 'Regression':
         selected_model = EDA_column.selectbox('Regression Models', options = ['Linear', 'Ridge', 'Lasso'])
     try:

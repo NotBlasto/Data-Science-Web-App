@@ -127,7 +127,7 @@ def createModel(df, problem_type, selected_model, web_column):
                 logreg = LogisticRegression(random_state = 2)
                 logreg_cv = GridSearchCV(logreg, parameters, cv=cv_slider, refit=True)
                 return logreg_cv
-        elif selected_model == 'SVM':
+        elif selected_model == 'SVM (Experimental)':
             cv_slider = web_column.slider('CV Amount', min_value = 1, max_value = 15, step = 1)
             parameters = {'kernel':('linear','rbf','poly','sigmoid'), 'C': np.logspace(-3, 3, 5), 'gamma': np.logspace(-3, 3, 5)}
             button = web_column.button('Run')
