@@ -82,22 +82,18 @@ def dropColumn(df, selected_column, web_column):
         df = df.drop(columns = selected_column[i])
     return df
 
-def splitData(df, web_column):
-    dependent_var = web_column.selectbox('Dependent Variable', options = df.columns)
-    independent_vars = web_column.multiselect('Independent Variables', options = df.columns)
+def splitData(df, dependent_var, independent_vars, standardize, normalize):
     Y = df[dependent_var].to_numpy()
     X = df[independent_vars].to_numpy()
-    standardize = web_column.checkbox('Standardize Data')
-    normalize = web_column.checkbox('Normalize Data')
-    scaler = preprocessing.StandardScaler()
-    normalizer = Normalizer()
     if normalize:
+        normalizer = Normalizer()
         X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=.2,random_state=2)
         X_train_scaled = normalizer.fit_transform(X_train)
         X_test_scaled = normalizer.fit_transform(X_test)
         return X_train_scaled, X_test_scaled, Y_train, Y_test
 
     elif standardize:
+        scaler = preprocessing.StandardScaler()
         X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=.2,random_state=2)
         X_train_scaled = scaler.fit_transform(X_train)
         X_test_scaled = scaler.fit_transform(X_test)

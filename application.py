@@ -64,8 +64,12 @@ def main(df):
         selected_model = EDA_column.selectbox('Classification Models', options = ['Logreg','KNN', 'Decision Tree', 'SVM (Experimental)'])
     elif problem_type == 'Regression':
         selected_model = EDA_column.selectbox('Regression Models', options = ['Linear', 'Ridge', 'Lasso'])
+    dependent_var = EDA_column.selectbox('Dependent Variable', options = options)
+    independent_vars = EDA_column.multiselect('Independent Variables', options = options)
+    standardize = EDA_column.checkbox('Standardize Data')
+    normalize = EDA_column.checkbox('Normalize Data')
     try:
-        x_train, x_test, y_train, y_test = splitData(df, EDA_column)
+        x_train, x_test, y_train, y_test = splitData(df, dependent_var, independent_vars, standardize, normalize)
     except:
         pass
     try:
