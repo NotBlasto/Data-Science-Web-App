@@ -73,10 +73,8 @@ def main(df):
         trained_model = train(model,x_train, x_test, y_train, y_test, problem_type, EDA_column)
     except (AttributeError, UnboundLocalError):
         pass
-    try:
-        save_model(trained_model, EDA_column)
-    except:
-        pass
+    save_model(trained_model, EDA_column)
+    
 
 #Page layout/config
 st.set_page_config(layout='wide')
